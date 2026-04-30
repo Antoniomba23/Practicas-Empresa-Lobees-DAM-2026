@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "lobees": {
+      "command": "node",
+      "args": [
+        "D:/DAM/Rutas y Proyectos/Proyectos/Practica_Empresa_Loebes/Semana II/lobees-mcp/dist/index.js"
+      ],
+      "env": {
+        "LOBEES_API_URL": "https://app.lobees.com/api",
+        "LOBEES_API_TOKEN": "TU_LOBEES_TOKEN_AQUI",
+        "DEPLOY_API_URL": "https://dashboards.lobees.com/api/upload",
+        "DEPLOY_BASE_URL": "https://dashboards.lobees.com",
+        "DEPLOY_TOKEN": "TU_DEPLOY_TOKEN_AQUI"
+      }
+    }
+  }
+}

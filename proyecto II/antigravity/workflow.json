@@ -1,0 +1,22 @@
+{
+  "name": "Lobees AI Automation Dashboard Workflow",
+  "description": "Flujo autónomo para procesar tareas del CRM y generar dashboards interactivos usando el MCP de Lobees.",
+  "steps": [
+    {
+      "id": "check_pending_and_run",
+      "name": "Revisar Tareas Pendientes",
+      "description": "1. Llama a lobees_list_pending_tasks. 2. Si no hay tareas pendientes: informa al usuario y termina. 3. Si hay tareas pendientes: muestra la lista al usuario con id, nombre y número de leads. 4. Pregunta al usuario si debe procesar todas o solo una específica. 5. Para cada tarea a procesar: ejecuta la skill run-automation-task. 6. Al finalizar: muestra un resumen con el número de tareas procesadas y las URLs de dashboards generados."
+    },
+    {
+      "id": "run_automation_task",
+      "name": "Ejecutar Tarea",
+      "description": "1. Llama a lobees_update_task_status con status: 'in_progress'. 2. Llama a lobees_get_leads_by_task para obtener los leads. 3. Para cada lead: llama a lobees_write_log con 'Procesando lead [nombre]', level: info. 4. Procesa cada lead ejecutando 'Lobees Tech Audit': simula evaluación, asigna Health Score (0-100) y detecta vulnerabilidades, guardando estos datos en un log. 5. Actualiza las métricas con lobees_update_metrics. 6. Al terminar todos los leads: llama a generate-automation-dashboard. 7. Llama a lobees_update_task_status con status: 'completed'. 8. Si ocurre algún error: llama a lobees_write_log con level: error y luego a lobees_update_task_status con status: 'error'."
+    },
+    {
+      "id": "generate_automation_dashboard",
+      "name": "Generar Dashboard",
+      "description": "1. Llama a lobees_get_task(taskId). 2. Llama a lobees_get_leads_by_task(taskId). 3. Llama a lobees_get_logs(taskId). 4. Construye un HTML autocontenido con: título, fecha, tabla de métricas, tabla de leads y timeline de logs. Colores #1A56A0 y #EBF2FB. Sin CDN. 5. Llama a lobees_publish_dashboard. 6. Escribe un log con lobees_write_log: 'Dashboard generado', level: success. 7. Devuelve la URL."
+    }
+  ],
+  "mcp_adapter_url": "URL_PROPORCIONADA_POR_INSTRUCTOR"
+}

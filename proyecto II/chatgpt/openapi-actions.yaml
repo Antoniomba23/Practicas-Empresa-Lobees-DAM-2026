@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: Lobees AI Automation API
+  description: API para gestionar tareas de automatización, leads y dashboards en Lobees CRM.
+  version: 1.0.0
+servers:
+  - url: https://api.lobees.com/v1
+paths:
+  /tasks/pending:
+    get:
+      operationId: lobees_list_pending_tasks
+      summary: Lista todas las tareas de automatización pendientes.
+      responses:
+        '200':
+          description: Lista de tareas.
+  /tasks/{taskId}:
+    get:
+      operationId: lobees_get_task
+      summary: Obtiene el detalle de una tarea específica.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Detalle de la tarea.
+    put:
+      operationId: lobees_update_task_status
+      summary: Cambia el estado de una tarea.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status: { type: string, enum: [pending, in_progress, completed, error] }
+      responses:
+        '200':
+          description: Estado actualizado.
+  /tasks/{taskId}/leads:
+    get:
+      operationId: lobees_get_leads_by_task
+      summary: Obtiene los leads asociados a una tarea.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Lista de leads.
+  /leads/{leadId}:
+    get:
+      operationId: lobees_get_lead
+      summary: Obtiene el perfil de un lead.
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Perfil del lead.
+  /tasks/{taskId}/logs:
+    get:
+      operationId: lobees_get_logs
+      summary: Lee el historial de logs de una tarea.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Historial de logs.
+    post:
+      operationId: lobees_write_log
+      summary: Escribe una entrada en el log de la tarea.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message: { type: string }
+                level: { type: string, enum: [info, success, error] }
+      responses:
+        '200':
+          description: Log registrado.
+  /tasks/{taskId}/dashboard:
+    post:
+      operationId: lobees_publish_dashboard
+      summary: Publica el HTML del dashboard y guarda la URL en la tarea.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                html: { type: string }
+      responses:
+        '200':
+          description: Dashboard publicado.
+    get:
+      operationId: lobees_get_dashboard_url
+      summary: Devuelve la URL del dashboard ya publicado.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: URL del dashboard.
+  /tasks/{taskId}/metrics:
+    put:
+      operationId: lobees_update_metrics
+      summary: Actualiza los contadores de progreso de la tarea.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processed: { type: integer }
+                errors: { type: integer }
+      responses:
+        '200':
+          description: Métricas actualizadas.

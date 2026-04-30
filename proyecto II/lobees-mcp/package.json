@@ -1,0 +1,17 @@
+{
+  "name": "lobees-mcp",
+  "version": "1.0.0",
+  "description": "Servidor MCP propio para conectar las IAs con Lobees CRM",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.1",
+    "dotenv": "^16.6.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

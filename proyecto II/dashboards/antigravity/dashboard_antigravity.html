@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobees Tech Audit - Antigravity AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1A56A0;
+            --primary-light: #4A81CD;
+            --background: #EBF2FB;
+            --surface: #FFFFFF;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --success: #10B981;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(26, 86, 160, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        header h1 { margin: 0; font-weight: 600; font-size: 2rem; }
+        .badge { background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; backdrop-filter: blur(5px); }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            animation: fadeIn 1s ease-out 0.3s backwards;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .metric-card:hover { transform: translateY(-5px); }
+        .metric-value { font-size: 2.5rem; font-weight: 600; color: var(--primary); margin: 0.5rem 0; }
+        
+        .score-low { color: var(--danger); }
+        .score-med { color: var(--warning); }
+        .score-high { color: var(--success); }
+
+        .table-container, .timeline-container {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #E2E8F0; }
+        th { color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.875rem; }
+        tr:hover { background-color: #F8FAFC; }
+
+        .status-pill { padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.75rem; font-weight: 600; }
+        .status-completed { background: #D1FAE5; color: #065F46; }
+        .status-progress { background: #DBEAFE; color: #1E40AF; }
+        .status-error { background: #FEE2E2; color: #991B1B; }
+
+        .timeline { border-left: 3px solid var(--primary-light); padding-left: 1.5rem; margin-top: 1.5rem; }
+        .timeline-item { position: relative; margin-bottom: 1.5rem; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -1.95rem; top: 0.25rem;
+            width: 12px; height: 12px; background: var(--primary); border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--background);
+        }
+        .time { font-size: 0.875rem; color: var(--text-muted); font-weight: 600; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- HEADER -->
+        <header>
+            <div>
+                <h1>Auditoría Tecnológica Lobees</h1>
+                <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Generado automáticamente vía MCP Workflow</p>
+            </div>
+            <div style="text-align: right;">
+                <span class="badge">IA: Antigravity (Google)</span><br>
+                <span class="badge" style="margin-top: 0.5rem; display: inline-block;">Abril 2026</span>
+            </div>
+        </header>
+
+        <!-- KPI METRICS -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div style="color: var(--text-muted);">Leads Analizados</div>
+                <div class="metric-value">3</div>
+            </div>
+            <div class="metric-card">
+                <div style="color: var(--text-muted);">Health Score Global</div>
+                <div class="metric-value score-med">45%</div>
+            </div>
+            <div class="metric-card">
+                <div style="color: var(--text-muted);">Vulnerabilidades Críticas</div>
+                <div class="metric-value score-low">2</div>
+            </div>
+            <div class="metric-card">
+                <div style="color: var(--text-muted);">Llamadas al MCP</div>
+                <div class="metric-value">12</div>
+            </div>
+        </div>
+
+        <!-- LEADS TABLE -->
+        <div class="table-container">
+            <h2 style="margin-top: 0;">Resultados de Inspección Técnica</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lead</th>
+                        <th>Estado CRM</th>
+                        <th>Health Score</th>
+                        <th>Vulnerabilidades Detectadas</th>
+                        <th>Último Log Registrado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Acme Corp</strong><br><span style="font-size: 0.875rem; color: var(--text-muted)">contacto@acme.corp</span></td>
+                        <td><span class="status-pill status-progress">En Progreso</span></td>
+                        <td><span class="score-low" style="font-weight: 600;">30%</span></td>
+                        <td>Base de datos MySQL obsoleta (CVE-2023-145).</td>
+                        <td>Revisión de infraestructura en curso. Requiere parche crítico.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Globex Inc</strong><br><span style="font-size: 0.875rem; color: var(--text-muted)">admin@globex.io</span></td>
+                        <td><span class="status-pill status-completed">Completado</span></td>
+                        <td><span class="score-high" style="font-weight: 600;">90%</span></td>
+                        <td>Ninguna. Stack moderno.</td>
+                        <td>Auditoría limpia. Arquitectura cloud validada y segura.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Soylent IT</strong><br><span style="font-size: 0.875rem; color: var(--text-muted)">it@soylent.dev</span></td>
+                        <td><span class="status-pill status-error">Error / Riesgo</span></td>
+                        <td><span class="score-low" style="font-weight: 600;">15%</span></td>
+                        <td>Firewall perimetral abierto. Certificado SSL expirado.</td>
+                        <td>Fallo de conexión segura detectado. Reportado como riesgo alto.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline-container">
+            <h2 style="margin-top: 0;">Timeline de Ejecución (Logs)</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">10:00:15 AM</div>
+                    <div><strong>Llamada al MCP:</strong> <code>lobees_list_pending_tasks</code> ejecutado. Tarea de auditoría iniciada.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">10:00:18 AM</div>
+                    <div><strong>Llamada al MCP:</strong> <code>lobees_write_log</code> ejecutado para Acme Corp (Iniciando escaneo de puertos).</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">10:01:45 AM</div>
+                    <div><strong>Llamada al MCP:</strong> <code>lobees_update_metrics</code> ejecutado. Health score recalculado.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">10:02:10 AM</div>
+                    <div><strong>Ejecución Autónoma:</strong> Dashboard HTML premium generado con los resultados.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">10:02:15 AM</div>
+                    <div><strong>Llamada al MCP:</strong> <code>lobees_publish_dashboard</code> inyectando HTML al VPS remoto.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
